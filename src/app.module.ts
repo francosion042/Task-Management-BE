@@ -9,6 +9,8 @@ import { AuthModule } from './modules/auth/auth.module';
 import { UserModule } from './modules/user/user.module';
 import { IsUniqueConstraint } from './common/custom-validators/is-unique.validator';
 import { ProjectModule } from './modules/project/project.module';
+import { TaskModule } from './modules/task/task.module';
+import { TaskColumnModule } from './modules/task-column/task-column.module';
 
 @Module({
   imports: [
@@ -16,6 +18,8 @@ import { ProjectModule } from './modules/project/project.module';
     AuthModule,
     UserModule,
     ProjectModule,
+    TaskModule,
+    TaskColumnModule,
     TypeOrmModule.forRootAsync({
       imports: [DatabaseModule],
       useFactory: (configService: DatabaseService) =>

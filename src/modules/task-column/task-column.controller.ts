@@ -13,9 +13,10 @@ import { CreateTaskColumnDto } from './dto/create-task-column.dto';
 import { UpdateTaskColumnDto } from './dto/update-task-column.dto';
 import { BaseResponseDto } from '../../common/dto/base-response.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { IsProjectOwnerGuard } from '../auth/guards/user-permission.guard';
 
 @Controller('projects/:project_id/task-columns')
-@UseGuards(JwtAuthGuard)
+@UseGuards(JwtAuthGuard, IsProjectOwnerGuard)
 export class TaskColumnController {
   constructor(private readonly taskColumnService: TaskColumnService) {}
 
@@ -31,8 +32,14 @@ export class TaskColumnController {
   }
 
   @Get()
-  findAll() {
-    return this.taskColumnService.findAll();
+  async findAll(@Param('project_id') projectId: number) {
+    const columns = await this.taskColumnService.findAll(projectId);
+
+    return new BaseResponseDto(
+      200,
+      'Task Columns Fetched Successfully',
+      columns,
+    );
   }
 
   @Get(':id')

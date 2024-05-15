@@ -27,14 +27,17 @@ export class TaskColumnService {
     return column;
   }
 
-  findAll() {
-    return `This action returns all taskColumn`;
+  findAll(projectId: number) {
+    return this.taskColumnRepository.find({
+      where: { projectId },
+      relations: ['tasks'],
+    });
   }
 
   findOne(id: number) {
     return this.taskColumnRepository.findOne({
       where: { id },
-      relations: ['project'],
+      relations: ['tasks'],
     });
   }
 

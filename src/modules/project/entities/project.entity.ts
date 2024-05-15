@@ -8,8 +8,8 @@ import {
 } from 'typeorm';
 import { User } from '../../user/entities/user.entity';
 import { ProjectStatus } from './index.enum';
-import { Task } from 'src/modules/task/entities/task.entity';
-import { TaskColumn } from 'src/modules/task-column/entities/task-column.entity';
+import { Task } from '../../task/entities/task.entity';
+import { TaskColumn } from '../../task-column/entities/task-column.entity';
 
 @Entity({ name: 'projects' })
 export class Project {
