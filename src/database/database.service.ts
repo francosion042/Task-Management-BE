@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import type { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { EnvConfigService } from '../envConfig/envConfig.service';
-import { SnakeNamingStrategy } from '../snake-naming.strategy';
+import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 
 @Injectable()
 export class DatabaseService {

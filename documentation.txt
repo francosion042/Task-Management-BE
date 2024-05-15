@@ -1,0 +1,2 @@
+To Create a migration file, run:
+- npm run migration:create --name=create_users_table
