@@ -6,12 +6,10 @@ import {
   Post,
   Req,
   UseGuards,
-  UseInterceptors,
 } from '@nestjs/common';
 import { Request } from 'express';
 import { AuthService } from './auth.service';
 import { LocalAuthGuard } from './local-auth.guard';
-import { NoFilesInterceptor } from '@nestjs/platform-express';
 import { UserRegisterDto } from './dto/user-register.dto';
 import { UserService } from '../user/user.service';
 import { BaseResponseDto } from '../../common/dto/base-response.dto';
@@ -24,7 +22,6 @@ export class AuthController {
   ) {}
 
   @Post('register')
-  @UseInterceptors(NoFilesInterceptor())
   async register(@Body() userRegisterDto: UserRegisterDto) {
     const user = await this.userService.create(userRegisterDto);
 

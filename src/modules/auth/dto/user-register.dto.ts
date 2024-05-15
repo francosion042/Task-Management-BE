@@ -1,4 +1,4 @@
-import { IsEmail, IsNotEmpty, MinLength, IsPhoneNumber } from 'class-validator';
+import { IsEmail, IsNotEmpty, MinLength } from 'class-validator';
 import { isUnique } from '../../../common/custom-validators/index.decorator';
 
 export class UserRegisterDto {
@@ -16,8 +16,4 @@ export class UserRegisterDto {
   @IsNotEmpty()
   @MinLength(5)
   password: string;
-
-  @IsPhoneNumber()
-  @IsNotEmpty()
-  mobile: string;
 }
