@@ -9,6 +9,7 @@ import {
   IsString,
 } from 'class-validator';
 import { TaskDifficulty, TaskPriority } from '../entities/index.enum';
+import { Exists } from '../../../common/custom-validators/index.decorator';
 
 export class CreateTaskDto {
   @IsString()
@@ -32,9 +33,11 @@ export class CreateTaskDto {
 
   @IsNumber()
   @IsOptional()
+  @Exists({ tableName: 'projects', column: 'id' })
   projectId?: number;
 
   @IsNumber()
+  @Exists({ tableName: 'task_columns', column: 'id' })
   taskColumnId: number;
 
   @IsDateString()

@@ -25,14 +25,14 @@ export class ProjectService {
     return await this.projectRepository.findBy({ ownerId: user.id });
   }
 
-  async findOne(id: number) {
+  async findOneOrFail(id: number) {
     try {
       return await this.projectRepository.findOneOrFail({
         where: { id },
         relations: ['owner'],
       });
     } catch (error) {
-      throw new NotFoundException(error);
+      throw new NotFoundException(error.message);
     }
   }
 

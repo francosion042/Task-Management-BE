@@ -1,4 +1,5 @@
 import { IsNumber, IsOptional, IsString } from 'class-validator';
+import { Exists } from '../../../common/custom-validators/index.decorator';
 
 export class CreateTaskColumnDto {
   @IsString()
@@ -10,5 +11,6 @@ export class CreateTaskColumnDto {
 
   @IsNumber()
   @IsOptional()
+  @Exists({ tableName: 'projects', column: 'id' })
   projectId?: number;
 }

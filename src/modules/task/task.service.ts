@@ -15,6 +15,8 @@ export class TaskService {
     private readonly userService: UserService,
   ) {}
   async create(createTaskDto: CreateTaskDto) {
+    await this.projectService.findOneOrFail(createTaskDto.projectId!);
+
     const task = this.taskRepository.create(createTaskDto);
 
     // TODO: Add task Id to task order Ids in the column

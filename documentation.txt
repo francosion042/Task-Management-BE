@@ -2,5 +2,6 @@ To Create a migration file, run:
 - npm run migration:create --name=create_users_table
 
 CUSTOMS
+- Validators (IsUnique, Exists)
 - Transform Interceptor
 - Permission Guard

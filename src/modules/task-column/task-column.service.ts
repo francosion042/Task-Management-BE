@@ -14,13 +14,9 @@ export class TaskColumnService {
     private readonly projectService: ProjectService,
   ) {}
   async create(createTaskColumnDto: CreateTaskColumnDto) {
-    const project = await this.projectService.findOne(
-      createTaskColumnDto.projectId!,
-    );
+    await this.projectService.findOneOrFail(createTaskColumnDto.projectId!);
 
     const column = this.taskColumnRepository.create(createTaskColumnDto);
-
-    column.project = project;
 
     await this.taskColumnRepository.save(column);
 

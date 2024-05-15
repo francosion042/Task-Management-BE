@@ -11,6 +11,7 @@ import {
   IsString,
 } from 'class-validator';
 import { TaskDifficulty, TaskPriority } from '../entities/index.enum';
+import { Exists } from '../../../common/custom-validators/index.decorator';
 
 export class UpdateTaskDto extends PartialType(CreateTaskDto) {
   @IsString()
@@ -46,5 +47,6 @@ export class UpdateTaskDto extends PartialType(CreateTaskDto) {
 
   @IsNumber()
   @IsOptional()
+  @Exists({ tableName: 'task_columns', column: 'id' })
   taskColumnId?: number;
 }

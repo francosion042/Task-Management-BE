@@ -48,7 +48,7 @@ export class ProjectController {
 
   @Get(':id')
   async findOne(@Param('id') id: string) {
-    const project = await this.projectService.findOne(+id);
+    const project = await this.projectService.findOneOrFail(+id);
 
     return new BaseResponseDto(200, 'Project Retrieved Successfully', project);
   }

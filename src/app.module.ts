@@ -11,6 +11,7 @@ import { IsUniqueConstraint } from './common/custom-validators/is-unique.validat
 import { ProjectModule } from './modules/project/project.module';
 import { TaskModule } from './modules/task/task.module';
 import { TaskColumnModule } from './modules/task-column/task-column.module';
+import { ExistsConstraint } from './common/custom-validators/exists.validator';
 
 @Module({
   imports: [
@@ -32,6 +33,7 @@ import { TaskColumnModule } from './modules/task-column/task-column.module';
     AppService,
     // registered custom class
     IsUniqueConstraint,
+    ExistsConstraint,
   ],
 })
 export class AppModule {}
