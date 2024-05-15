@@ -8,12 +8,14 @@ import { DatabaseService } from './database/database.service';
 import { AuthModule } from './modules/auth/auth.module';
 import { UserModule } from './modules/user/user.module';
 import { IsUniqueConstraint } from './common/custom-validators/is-unique.validator';
+import { ProjectModule } from './modules/project/project.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
     AuthModule,
     UserModule,
+    ProjectModule,
     TypeOrmModule.forRootAsync({
       imports: [DatabaseModule],
       useFactory: (configService: DatabaseService) =>

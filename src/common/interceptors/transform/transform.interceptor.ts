@@ -11,11 +11,11 @@ export class TransformInterceptor implements NestInterceptor {
   constructor(private readonly keyToRemove: string) {}
 
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
-    console.log(context);
     return next.handle().pipe(
       map((data) => {
         if (data && typeof data === 'object') {
-          return this.removeKey(data, this.keyToRemove);
+          const jsonObject = JSON.parse(JSON.stringify(data));
+          return this.removeKey(jsonObject, this.keyToRemove);
         } else {
           return data;
         }

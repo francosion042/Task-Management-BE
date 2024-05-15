@@ -1,8 +1,10 @@
+import { Project } from 'src/modules/project/entities/project.entity';
 import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
   CreateDateColumn,
+  OneToMany,
 } from 'typeorm';
 
 @Entity({ name: 'users' })
@@ -37,4 +39,7 @@ export class User {
     update: true,
   })
   updatedAt: Date;
+
+  @OneToMany(() => Project, (project) => project.owner)
+  projects: Project[];
 }
