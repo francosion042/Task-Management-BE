@@ -21,8 +21,8 @@ export class ProjectService {
     return project;
   }
 
-  findAll() {
-    return `This action returns all project`;
+  async findAll(user: User) {
+    return await this.projectRepository.findBy({ ownerId: user.id });
   }
 
   async findOne(id: number) {
