@@ -4,9 +4,12 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   ManyToOne,
+  OneToMany,
 } from 'typeorm';
 import { User } from '../../user/entities/user.entity';
 import { ProjectStatus } from './index.enum';
+import { Task } from 'src/modules/task/entities/task.entity';
+import { TaskColumn } from 'src/modules/task-column/entities/task-column.entity';
 
 @Entity({ name: 'projects' })
 export class Project {
@@ -46,4 +49,10 @@ export class Project {
 
   @ManyToOne(() => User, (user) => user.projects)
   owner: User;
+
+  @OneToMany(() => TaskColumn, (taskColumn) => taskColumn.project)
+  taskColumns: TaskColumn[];
+
+  @OneToMany(() => Task, (task) => task.project)
+  tasks: Task[];
 }
