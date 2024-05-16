@@ -8,7 +8,6 @@ import {
   MessageBody,
 } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
-import { SocketConnectionService } from './socket-connection.service';
 import { Task } from '../task/entities/task.entity';
 import { TaskColumn } from '../task-column/entities/task-column.entity';
 
@@ -16,9 +15,7 @@ import { TaskColumn } from '../task-column/entities/task-column.entity';
 export class SocketConnectionGateway
   implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect
 {
-  constructor(
-    private readonly socketConnectionService: SocketConnectionService,
-  ) {}
+  constructor() {}
 
   @WebSocketServer()
   server: Server;
