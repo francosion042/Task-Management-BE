@@ -37,12 +37,20 @@ export class ProjectService {
   }
 
   async update(id: number, updateProjectDto: UpdateProjectDto) {
-    await this.projectRepository.update(
-      { id },
-      { ...updateProjectDto, updatedAt: new Date() },
-    );
+    try {
+      const project = await this.projectRepository.findOneOrFail({
+        where: { id },
+      });
 
-    return await this.projectRepository.findOneOrFail({ where: { id } });
+      Object.assign(project, updateProjectDto);
+      project.updatedAt = new Date();
+
+      await this.projectRepository.save(project);
+
+      return project;
+    } catch (error) {
+      throw new NotFoundException(error.message);
+    }
   }
 
   async remove(id: number) {

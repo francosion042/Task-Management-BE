@@ -10,6 +10,7 @@ import { User } from '../../user/entities/user.entity';
 import { ProjectStatus } from './index.enum';
 import { Task } from '../../task/entities/task.entity';
 import { TaskColumn } from '../../task-column/entities/task-column.entity';
+import { ActiveViewerSocketConnectionType } from '../../../common/types';
 
 @Entity({ name: 'projects' })
 export class Project {
@@ -26,7 +27,7 @@ export class Project {
   status: string;
 
   @Column({ type: 'jsonb' })
-  activeViewingSocketConnections: object[];
+  activeViewerSocketConnections: ActiveViewerSocketConnectionType[];
 
   @CreateDateColumn({
     name: 'created_at',

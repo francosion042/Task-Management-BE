@@ -1,4 +1,9 @@
-import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
+import {
+  Injectable,
+  CanActivate,
+  ExecutionContext,
+  NotFoundException,
+} from '@nestjs/common';
 import { Request } from 'express';
 import { Reflector } from '@nestjs/core';
 import { Project } from 'src/modules/project/entities/project.entity';
@@ -27,10 +32,14 @@ export class IsProjectOwnerGuard implements CanActivate {
       projectId = request.params.id;
     }
 
-    const project = (await this.entityManager
-      .getRepository('projects')
-      .findOneOrFail({ where: { id: projectId } })) as Project;
+    try {
+      const project = (await this.entityManager
+        .getRepository('projects')
+        .findOneOrFail({ where: { id: projectId } })) as Project;
 
-    return project.ownerId === userId;
+      return project.ownerId === userId;
+    } catch (error) {
+      throw new NotFoundException(error.message);
+    }
   }
 }

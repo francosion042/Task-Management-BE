@@ -17,8 +17,8 @@ export class CreateTasksTable1715810066537 implements MigrationInterface {
         "task_column_id"    INTEGER REFERENCES "task_columns"("id") ON DELETE CASCADE,
         "start_date"        TIMESTAMP,
         "due_date"          TIMESTAMP,
-        "created_at"        TIMESTAMP            NOT NULL DEFAULT now(),
-        "updated_at"        TIMESTAMP            NOT NULL DEFAULT now()
+        "created_at"        TIMESTAMP            NOT NULL DEFAULT timezone('UTC', now()),
+        "updated_at"        TIMESTAMP            NOT NULL DEFAULT timezone('UTC', now())
         )`);
   }
 

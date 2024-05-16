@@ -51,12 +51,17 @@ export class TaskService {
 
   async update(id: number, updateTaskDto: UpdateTaskDto) {
     try {
-      await this.taskRepository.update(id, updateTaskDto);
-
-      return await this.taskRepository.findOne({
+      const task = await this.taskRepository.findOneOrFail({
         where: { id },
         relations: ['taskColumn'],
       });
+
+      Object.assign(task, updateTaskDto);
+      task.updatedAt = new Date();
+
+      await this.taskRepository.save(task);
+
+      return task;
     } catch (error) {
       throw new NotFoundException(error.message);
     }

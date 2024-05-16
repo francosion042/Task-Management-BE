@@ -10,8 +10,8 @@ export class CreateTaskColumnsTable1715810056592 implements MigrationInterface {
         "description"       TEXT,
         "status"            CHARACTER VARYING    DEFAULT 'OPEN',
         "project_id"        INTEGER REFERENCES "projects"("id") ON DELETE CASCADE,
-        "created_at"        TIMESTAMP            NOT NULL DEFAULT now(),
-        "updated_at"        TIMESTAMP            NOT NULL DEFAULT now()
+        "created_at"        TIMESTAMP            NOT NULL DEFAULT timezone('UTC', now()),
+        "updated_at"        TIMESTAMP            NOT NULL DEFAULT timezone('UTC', now())
         )`);
   }
 
