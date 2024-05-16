@@ -10,8 +10,6 @@ import { User } from '../../user/entities/user.entity';
 import { ProjectStatus } from './index.enum';
 import { Task } from '../../task/entities/task.entity';
 import { TaskColumn } from '../../task-column/entities/task-column.entity';
-import { ActiveViewerSocketConnectionType } from '../../../common/types';
-
 @Entity({ name: 'projects' })
 export class Project {
   @PrimaryGeneratedColumn()
@@ -25,9 +23,6 @@ export class Project {
 
   @Column({ type: 'enum', enum: ProjectStatus, default: ProjectStatus.OPEN })
   status: string;
-
-  @Column({ type: 'jsonb' })
-  activeViewerSocketConnections: ActiveViewerSocketConnectionType[];
 
   @CreateDateColumn({
     name: 'created_at',

@@ -16,5 +16,4 @@ export type ActiveViewerSocketConnectionType = {
 
 export type JoinActiveViewersType = {
   projectId: number;
-  userId: number;
 };

@@ -6,11 +6,11 @@ import {
   OnGatewayDisconnect,
   SubscribeMessage,
   MessageBody,
-  ConnectedSocket,
 } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
 import { SocketConnectionService } from './socket-connection.service';
-import { JoinActiveViewersType } from 'src/common/types';
+import { Task } from '../task/entities/task.entity';
+import { TaskColumn } from '../task-column/entities/task-column.entity';
 
 @WebSocketGateway()
 export class SocketConnectionGateway
@@ -29,31 +29,51 @@ export class SocketConnectionGateway
 
   handleConnection(client: Socket) {
     console.log(`Client ${client.id} connected`);
+
+    // Add the Client to the Room of active viewers of the project
+    const { projectId } = client.handshake.query;
+    client.join(projectId);
   }
 
   async handleDisconnect(client: Socket) {
     console.log(`Client ${client.id} disconnected`);
+
+    const { projectId } = client.handshake.query;
+    client.leave(String(projectId));
   }
 
-  @SubscribeMessage('joinProjectActiveViewers')
-  async handleJoinActiveViewers(
-    @ConnectedSocket() client: Socket,
-    @MessageBody() data: JoinActiveViewersType,
-  ) {
-    console.log(`Client ${client.id} Joined Project ${data.projectId}`);
+  @SubscribeMessage('new:taskColumn')
+  handleNewTaskColumn(@MessageBody() data: TaskColumn) {
+    console.log(data);
+    // Broadcast to the specified project
+    this.server.to(String(data.projectId)).emit('new:taskColumn', data);
+  }
 
-    client.join(String(data.projectId));
-
-    await this.socketConnectionService.addProjectActiveViewer(data.projectId, {
-      socketId: client.id,
-      userId: data.userId,
-    });
+  @SubscribeMessage('update:taskColumn')
+  handleUpdateTaskColumn(@MessageBody() data: TaskColumn) {
+    console.log(data);
+    // Broadcast to the specified project
+    this.server.to(String(data.projectId)).emit('update:taskColumn', data);
   }
 
   @SubscribeMessage('new:task')
-  handleNewTask(@MessageBody() data) {
+  handleNewTask(@MessageBody() data: Task) {
     console.log(data);
     // Broadcast to the specified project
-    this.server.to('projectId').emit('new:task', data);
+    this.server.to(String(data.projectId)).emit('new:task', data);
+  }
+
+  @SubscribeMessage('update:task')
+  handleUpdateTask(@MessageBody() data: Task) {
+    console.log(data);
+    // Broadcast to the specified project
+    this.server.to(String(data.projectId)).emit('update:task', data);
+  }
+
+  @SubscribeMessage('delete:task')
+  handleDeleteTask(@MessageBody() data: Task) {
+    console.log(data);
+    // Broadcast to the specified project
+    this.server.to(String(data.projectId)).emit('delete:task', data);
   }
 }
