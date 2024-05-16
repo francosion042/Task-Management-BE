@@ -54,8 +54,8 @@ export class TaskController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateTaskDto: UpdateTaskDto) {
-    const task = this.taskService.update(+id, updateTaskDto);
+  async update(@Param('id') id: string, @Body() updateTaskDto: UpdateTaskDto) {
+    const task = await this.taskService.update(+id, updateTaskDto);
 
     return new BaseResponseDto(200, 'Task Updated  Successfully', task);
   }

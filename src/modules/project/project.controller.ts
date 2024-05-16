@@ -17,6 +17,7 @@ import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { User } from '../user/entities/user.entity';
 import { BaseResponseDto } from '../../common/dto/base-response.dto';
 import { IsProjectOwnerGuard } from '../auth/guards/user-permission.guard';
+import { IsProjectOwner } from 'src/common/decorators/user-permission.decorator';
 
 @Controller('projects')
 @UseGuards(JwtAuthGuard)
@@ -55,9 +56,9 @@ export class ProjectController {
 
   @Patch(':id')
   @UseGuards(IsProjectOwnerGuard)
+  @IsProjectOwner('id')
   async update(
     @Param('id') id: string,
-    @Req() request: Request,
     @Body() updateProjectDto: UpdateProjectDto,
   ) {
     const project = await this.projectService.update(+id, updateProjectDto);

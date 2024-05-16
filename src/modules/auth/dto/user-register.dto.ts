@@ -1,5 +1,5 @@
 import { IsEmail, IsNotEmpty, MinLength } from 'class-validator';
-import { IsUnique } from '../../../common/custom-validators/index.decorator';
+import { IsUnique } from '../../../common/decorators/custom-validators.decorator';
 
 export class UserRegisterDto {
   @IsNotEmpty()

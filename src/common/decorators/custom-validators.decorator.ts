@@ -1,7 +1,7 @@
 import { ValidationOptions, registerDecorator } from 'class-validator';
 import { ExistsInterface, IsUniqueInterface } from '../types';
-import { IsUniqueConstraint } from './is-unique.validator';
-import { ExistsConstraint } from './exists.validator';
+import { IsUniqueConstraint } from '../custom-validators/is-unique.validator';
+import { ExistsConstraint } from '../custom-validators/exists.validator';
 
 // decorator function
 export function IsUnique(

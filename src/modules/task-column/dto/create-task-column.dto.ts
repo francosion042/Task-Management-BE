@@ -1,5 +1,5 @@
 import { IsNumber, IsOptional, IsString } from 'class-validator';
-import { Exists } from '../../../common/custom-validators/index.decorator';
+import { Exists } from '../../../common/decorators/custom-validators.decorator';
 
 export class CreateTaskColumnDto {
   @IsString()

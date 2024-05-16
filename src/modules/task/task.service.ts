@@ -47,17 +47,21 @@ export class TaskService {
         relations: ['project', 'taskColumn'],
       });
     } catch (error) {
-      throw new NotFoundException(error);
+      throw new NotFoundException(error.message);
     }
   }
 
   async update(id: number, updateTaskDto: UpdateTaskDto) {
-    await this.taskRepository.update(id, updateTaskDto);
+    try {
+      await this.taskRepository.update(id, updateTaskDto);
 
-    return await this.taskRepository.findOne({
-      where: { id },
-      relations: ['taskColumn'],
-    });
+      return await this.taskRepository.findOne({
+        where: { id },
+        relations: ['taskColumn'],
+      });
+    } catch (error) {
+      throw new NotFoundException(error.message);
+    }
   }
 
   async remove(id: number) {

@@ -9,7 +9,7 @@ import {
   IsString,
 } from 'class-validator';
 import { TaskDifficulty, TaskPriority } from '../entities/index.enum';
-import { Exists } from '../../../common/custom-validators/index.decorator';
+import { Exists } from '../../../common/decorators/custom-validators.decorator';
 
 export class CreateTaskDto {
   @IsString()
