@@ -9,7 +9,6 @@ export class CreateTaskColumnsTable1715810056592 implements MigrationInterface {
         "name"              CHARACTER VARYING    NOT NULL,
         "description"       TEXT,
         "status"            CHARACTER VARYING    DEFAULT 'OPEN',
-        "task_order_ids"    JSONB                DEFAULT '[]'::jsonb,
         "project_id"        INTEGER REFERENCES "projects"("id") ON DELETE CASCADE,
         "created_at"        TIMESTAMP            NOT NULL DEFAULT now(),
         "updated_at"        TIMESTAMP            NOT NULL DEFAULT now()

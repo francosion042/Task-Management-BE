@@ -32,8 +32,8 @@ export class AuthController {
       user,
     });
   }
-  @UseGuards(LocalAuthGuard)
   @Post('login')
+  @UseGuards(LocalAuthGuard)
   @HttpCode(HttpStatus.OK)
   async login(@Req() request: Request) {
     // console.log(request.user);

@@ -12,6 +12,7 @@ import { ProjectModule } from './modules/project/project.module';
 import { TaskModule } from './modules/task/task.module';
 import { TaskColumnModule } from './modules/task-column/task-column.module';
 import { ExistsConstraint } from './common/custom-validators/exists.validator';
+import { SocketConnectionModule } from './modules/socket-connection/socket-connection.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { ExistsConstraint } from './common/custom-validators/exists.validator';
     ProjectModule,
     TaskModule,
     TaskColumnModule,
+    SocketConnectionModule,
     TypeOrmModule.forRootAsync({
       imports: [DatabaseModule],
       useFactory: (configService: DatabaseService) =>

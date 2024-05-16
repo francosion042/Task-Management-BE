@@ -16,11 +16,12 @@ import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { IsProjectOwnerGuard } from '../auth/guards/user-permission.guard';
 
 @Controller('projects/:project_id/task-columns')
-@UseGuards(JwtAuthGuard, IsProjectOwnerGuard)
+@UseGuards(JwtAuthGuard)
 export class TaskColumnController {
   constructor(private readonly taskColumnService: TaskColumnService) {}
 
   @Post()
+  @UseGuards(IsProjectOwnerGuard)
   async create(
     @Body() createTaskColumnDto: CreateTaskColumnDto,
     @Param('project_id') projectId: number,
@@ -56,6 +57,7 @@ export class TaskColumnController {
   }
 
   @Delete(':id')
+  @UseGuards(IsProjectOwnerGuard)
   remove(@Param('id') id: string) {
     return this.taskColumnService.remove(+id);
   }

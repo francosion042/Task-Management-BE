@@ -19,8 +19,6 @@ export class TaskService {
 
     const task = this.taskRepository.create(createTaskDto);
 
-    // TODO: Add task Id to task order Ids in the column
-
     await this.taskRepository.save(task);
     return task;
   }
@@ -66,8 +64,6 @@ export class TaskService {
 
   async remove(id: number) {
     const task = await this.taskRepository.findOneOrFail({ where: { id } });
-
-    // TODO: Remove the task Id from the task order Ids in the column
 
     return await this.taskRepository.remove(task);
   }

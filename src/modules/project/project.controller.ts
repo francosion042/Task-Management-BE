@@ -66,6 +66,7 @@ export class ProjectController {
   }
   @Delete(':id')
   @UseGuards(IsProjectOwnerGuard)
+  @IsProjectOwner('id')
   async remove(@Param('id') id: string) {
     await this.projectService.remove(+id);
 

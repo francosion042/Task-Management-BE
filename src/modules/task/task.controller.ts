@@ -13,10 +13,9 @@ import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { BaseResponseDto } from '../../common/dto/base-response.dto';
-import { IsProjectOwnerGuard } from '../auth/guards/user-permission.guard';
 
 @Controller('projects/:project_id/tasks')
-@UseGuards(JwtAuthGuard, IsProjectOwnerGuard)
+@UseGuards(JwtAuthGuard)
 export class TaskController {
   constructor(private readonly taskService: TaskService) {}
 

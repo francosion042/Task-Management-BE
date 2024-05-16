@@ -25,8 +25,8 @@ export class Project {
   @Column({ type: 'enum', enum: ProjectStatus, default: ProjectStatus.OPEN })
   status: string;
 
-  @Column({ type: 'jsonb', name: 'task_column_order_ids' })
-  taskColumnOrderIds: [];
+  @Column({ type: 'jsonb' })
+  activeViewingSocketConnections: object[];
 
   @CreateDateColumn({
     name: 'created_at',

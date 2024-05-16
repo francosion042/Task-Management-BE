@@ -9,7 +9,7 @@ export class CreateProjectsTable1715803411725 implements MigrationInterface {
         "name"          character varying,
         "description"   TEXT,
         "status"        character varying    DEFAULT 'OPEN',
-        "task_column_order_ids" JSONB        DEFAULT '[]'::jsonb,
+        "active_viewing_socket_connections" JSONB        DEFAULT '[]'::jsonb,
         "owner_id"      INTEGER REFERENCES "users"("id") ON DELETE CASCADE,
         "created_at"    TIMESTAMP            NOT NULL DEFAULT now(),
         "updated_at"    TIMESTAMP            NOT NULL DEFAULT now()

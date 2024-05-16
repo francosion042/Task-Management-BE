@@ -20,9 +20,6 @@ export class TaskColumn {
   @Column()
   description: string;
 
-  @Column({ type: 'jsonb', name: 'task_order_ids' })
-  taskOrderIds: [];
-
   @CreateDateColumn({
     name: 'created_at',
     type: 'timestamptz',

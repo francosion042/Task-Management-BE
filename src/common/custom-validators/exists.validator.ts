@@ -14,7 +14,6 @@ export class ExistsConstraint implements ValidatorConstraintInterface {
   async validate(value: any, args?: ValidationArguments): Promise<boolean> {
     // catch options from decorator
     const { tableName, column }: ExistsInterface = args!.constraints[0];
-    console.log('got here');
 
     // database query check data is exists
     const dataExist = await this.entityManager
@@ -28,7 +27,8 @@ export class ExistsConstraint implements ValidatorConstraintInterface {
 
   defaultMessage(validationArguments?: ValidationArguments): string {
     // return custom field message
-    const field: string = validationArguments!.property;
-    return `${field} does not exist`;
+    const field: string = validationArguments.property;
+    const { tableName } = validationArguments.constraints[0];
+    return `${field} does not exist in table: ${tableName}`;
   }
 }
