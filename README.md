@@ -49,7 +49,6 @@ This is a basic Project and Task Management API that lets you create a project, 
 
 ## ERD
 
-<!-- ![ERD](documentation/TaskManagement_ERD.png) -->
 <p align="center">
   <img src="documentation/task-management-erd.png" width="800" height="700" alt="ERD" />
 </p>
@@ -58,6 +57,11 @@ The Entity Relationship Diagram (ERD) above summarizes the data structure and mo
 
 ## API Documentation
 
+### - REST
+
 [API Documentation](https://documenter.getpostman.com/view/7759986/2sA3JT1d9S)
 
-Sample Screenshots of the Socket connection are in the documentation folder as i'm unable to publish or export the Socket collection from Postman
+### - WebSocket
+
+Sample Screenshots of the Socket connection are in the documentation folder in the root directory
+as i'm unable to publish or export the Socket collection from Postman
