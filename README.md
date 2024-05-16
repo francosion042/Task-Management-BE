@@ -30,7 +30,7 @@ This is a basic Project and Task Management API that lets you create a project, 
 
 3. Create a .env file and add the following
 
-    ```json
+    ```.env
     NODE_ENV=development
     DB_HOST=localhost
     DB_PORT=5432
