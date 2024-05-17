@@ -53,11 +53,37 @@ export class TaskColumnService {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  update(id: number, updateTaskColumnDto: UpdateTaskColumnDto) {
-    return `This action updates a #${id} taskColumn`;
+  async update(id: number, updateTaskColumnDto: UpdateTaskColumnDto) {
+    try {
+      const column = await this.taskColumnRepository.findOneOrFail({
+        where: { id },
+        relations: ['tasks'],
+      });
+
+      Object.assign(column, updateTaskColumnDto);
+      column.updatedAt = new Date();
+
+      await this.taskColumnRepository.save(column);
+
+      this.socketService.broadcast('update:taskColumn', column);
+
+      return column;
+    } catch (error) {
+      throw new NotFoundException(error.message);
+    }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} taskColumn`;
+  async remove(id: number) {
+    try {
+      const column = await this.taskColumnRepository.findOneOrFail({
+        where: { id },
+      });
+
+      this.socketService.broadcast('delete:taskColumn', column);
+
+      return await this.taskColumnRepository.remove(column);
+    } catch (error) {
+      throw new NotFoundException(error.message);
+    }
   }
 }

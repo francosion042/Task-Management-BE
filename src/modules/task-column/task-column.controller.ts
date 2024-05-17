@@ -49,16 +49,27 @@ export class TaskColumnController {
   }
 
   @Patch(':id')
-  update(
+  @UseGuards(IsProjectOwnerGuard)
+  async update(
     @Param('id') id: string,
     @Body() updateTaskColumnDto: UpdateTaskColumnDto,
   ) {
-    return this.taskColumnService.update(+id, updateTaskColumnDto);
+    const column = await this.taskColumnService.update(
+      +id,
+      updateTaskColumnDto,
+    );
+
+    return new BaseResponseDto(
+      200,
+      'Task Columns Updated Successfully',
+      column,
+    );
   }
 
   @Delete(':id')
   @UseGuards(IsProjectOwnerGuard)
-  remove(@Param('id') id: string) {
-    return this.taskColumnService.remove(+id);
+  async remove(@Param('id') id: string) {
+    await this.taskColumnService.remove(+id);
+    return new BaseResponseDto(200, 'Task Columns Deleted Successfully');
   }
 }
