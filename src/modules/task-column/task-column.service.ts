@@ -5,6 +5,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { TaskColumn } from './entities/task-column.entity';
 import { ProjectService } from '../project/project.service';
+import { SocketConnectionService } from '../socket-connection/socket-connection.service';
 
 @Injectable()
 export class TaskColumnService {
@@ -12,6 +13,7 @@ export class TaskColumnService {
     @InjectRepository(TaskColumn)
     private taskColumnRepository: Repository<TaskColumn>,
     private readonly projectService: ProjectService,
+    private readonly socketService: SocketConnectionService,
   ) {}
   async create(createTaskColumnDto: CreateTaskColumnDto) {
     await this.projectService.findOneOrFail(createTaskColumnDto.projectId!);
@@ -19,6 +21,8 @@ export class TaskColumnService {
     const column = this.taskColumnRepository.create(createTaskColumnDto);
 
     await this.taskColumnRepository.save(column);
+
+    this.socketService.broadcast('create:taskColumn', column);
 
     return column;
   }

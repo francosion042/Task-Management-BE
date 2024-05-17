@@ -5,14 +5,14 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Task } from './entities/task.entity';
 import { Repository } from 'typeorm';
 import { ProjectService } from '../project/project.service';
-import { UserService } from '../user/user.service';
+import { SocketConnectionService } from '../socket-connection/socket-connection.service';
 
 @Injectable()
 export class TaskService {
   constructor(
     @InjectRepository(Task) private taskRepository: Repository<Task>,
     private readonly projectService: ProjectService,
-    private readonly userService: UserService,
+    private readonly socketService: SocketConnectionService,
   ) {}
   async create(createTaskDto: CreateTaskDto) {
     await this.projectService.findOneOrFail(createTaskDto.projectId!);
@@ -20,6 +20,8 @@ export class TaskService {
     const task = this.taskRepository.create(createTaskDto);
 
     await this.taskRepository.save(task);
+
+    this.socketService.broadcast('create:task', task);
     return task;
   }
 
@@ -61,6 +63,8 @@ export class TaskService {
 
       await this.taskRepository.save(task);
 
+      this.socketService.broadcast('update:task', task);
+
       return task;
     } catch (error) {
       throw new NotFoundException(error.message);
@@ -69,6 +73,8 @@ export class TaskService {
 
   async remove(id: number) {
     const task = await this.taskRepository.findOneOrFail({ where: { id } });
+
+    this.socketService.broadcast('delete:task', task);
 
     return await this.taskRepository.remove(task);
   }

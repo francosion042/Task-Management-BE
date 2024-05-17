@@ -7,5 +7,6 @@ import { Project } from '../project/entities/project.entity';
 @Module({
   imports: [TypeOrmModule.forFeature([Project])],
   providers: [SocketConnectionGateway, SocketConnectionService],
+  exports: [SocketConnectionService],
 })
 export class SocketConnectionModule {}

@@ -4,10 +4,14 @@ import { TaskController } from './task.controller';
 import { ProjectModule } from '../project/project.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Task } from './entities/task.entity';
-import { UserModule } from '../user/user.module';
+import { SocketConnectionModule } from '../socket-connection/socket-connection.module';
 
 @Module({
-  imports: [ProjectModule, UserModule, TypeOrmModule.forFeature([Task])],
+  imports: [
+    ProjectModule,
+    SocketConnectionModule,
+    TypeOrmModule.forFeature([Task]),
+  ],
   controllers: [TaskController],
   providers: [TaskService],
   exports: [TaskService],
