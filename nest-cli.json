@@ -5,5 +5,8 @@
   "compilerOptions": {
     "deleteOutDir": true,
     "watchAssets": true
+  },
+  "generateOptions": {
+    "spec": false
   }
 }

@@ -6,18 +6,19 @@ import {
   OnGatewayDisconnect,
 } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
+import { SocketAuthMiddleware } from '../auth/middleware/ws-jwt.middleware';
 
 @WebSocketGateway()
+// @UseGuards(SocketJwtAuthGuard)
 export class SocketConnectionGateway
   implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect
 {
-  constructor() {}
-
   @WebSocketServer()
   server: Server;
 
-  afterInit() {
+  afterInit(client: Socket) {
     console.log('Socket Initialized');
+    client.use(SocketAuthMiddleware() as any);
   }
 
   handleConnection(client: Socket) {
